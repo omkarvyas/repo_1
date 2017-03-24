@@ -1,3 +1,5 @@
+#########################################################################            New Git Repo Creation and adding files                     #########################################################################
+
 create a new repository on GitHub. To avoid errors do not initilize the new repo with readme, license or gitignore files you can add these files after your project is created. 
 
 Open Git Bash
@@ -27,6 +29,16 @@ $git remot -v
 
 $git pull --rebase origin master --> if this is not done we face error "error: failed to push some refs to 'https://github.com/omkarvyas/<repo>"
 $git push origin master
+
+
+#########################################################################            removing files from the git repo and local                      #########################################################################
+
+
+git rm <filename>
+git commit -m "removed filename"
+git push origin branch_name
+
+
 
 
 
