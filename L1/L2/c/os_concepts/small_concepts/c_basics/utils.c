@@ -6,6 +6,19 @@ extern node *head;
 extern node *curr;
 
 
+unsigned char BitsSetTable256_f[256];
+unsigned char BitsSetTable256[256]= {
+
+#define B2(n) n,        n+1,        n+1,        n+2
+#define B4(n) B2(n),    B2(n+1),   B2(n+1),    B2(n+2)
+#define B6(n) B4(n),    B4(n+1),   B4(n+1),    B4(n+2)
+B6(0), B6(1), B6(1), B6(2)
+
+};
+
+
+
+
 node* create_list(int val){
 
         node *c_node = NULL;
@@ -143,9 +156,6 @@ node *p_node = NULL;
     c_node = head -> next;
     free(p_node);
     head = c_node;
-
-   
-
     
     }
 
@@ -165,6 +175,93 @@ node *p_node = NULL;
     }
 return 0;
 }
+
+
+
+/*
+ The Hamming distance between two integers is the number of positions at which the corresponding bits are different.
+
+ Given two integers x and y, calculate the Hamming distance.
+
+Example:
+
+
+Input: x = 1, y = 4
+
+Output: 2
+
+Explanation:
+1   (0 0 0 1)
+4   (0 1 0 0)
+       ^   ^
+       |   | 
+
+       The above arrows point to positions where the corresponding bits are different.
+
+ */
+
+int hammingDistance(int x, int y ){
+
+    int xor_of_two_nums = 0;
+    int count_n_of_ones = 0;
+
+    xor_of_two_nums = x ^ y;
+    printf("xor of 2 number = %d ", xor_of_two_nums );
+
+    return count_n_of_ones = count_set_bits(xor_of_two_nums);
+
+}
+
+unsigned int count_set_bits(int numb){
+
+
+unsigned int c = 0;
+
+return c  = BitsSetTable256[numb & 0xff] +
+    BitsSetTable256[(numb >> 8) & 0xff]+
+    BitsSetTable256[(numb >> 16)& 0xff]+
+    BitsSetTable256[(numb >> 24)& 0xff];
+
+}
+
+
+
+
+void set_bit_table_256(void){
+
+int i = 0;
+
+    for(i = 0; i < 256; i++){
+
+        BitsSetTable256_f[i] = (i&1)+BitsSetTable256_f[i/2];
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
