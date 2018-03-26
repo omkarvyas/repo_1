@@ -10,24 +10,48 @@ main.c:  main function to call all utilities, programs
 node *head;
 node *curr;
 
+typedef union {
+    unsigned int value;
+    struct {
+        bool bit31:1;
+        bool bit30:1;
+        bool bit29:1;
+    }bit_field;
+
+}data_bits;
+
+
+
 int main(){
 
-//int itr = 0;
-int Hd = 0;
-set_bit_table_256();
 
-#if 0
-printf("\n Other way of populating table\n ");
+unsigned int numb = 0;
+unsigned int x = 0;
+data_bits var;
+printf("\n Input a number \n");
+scanf("%d",&numb);
 
-    for(itr = 0; itr<256;itr++){
-        printf(" Bits[%d] = %d \t", itr, BitsSetTable256_f[itr]);
-        if(itr%6 == 0)printf("\n");
+printf("\n input number = %d \n",numb);
+
+    while(numb){
+
+        var.bit_field.bit31 = numb%2;
+        printf("x = %d \t",var.bit_field.bit31);
+        printf("size of data_bits = %ld",sizeof(data_bits));
+        numb = numb/2;
     }
-#endif //0
 
-Hd = hammingDistance(93,73);
 
-printf("\n hamming distance = %d \n", Hd);
+printf("\n input number after a not = %d \n",numb);
+
+
+
+
+
+printf("\n Hello Linux C \n");
+return 0;
+
+
 
 /*Singly Linked list related programs */        
 #if 0
@@ -79,8 +103,27 @@ print_ll();
 #endif
 
 
-printf("\n Hello Linux C \n");
-return 0;
+/* Hamming Distance calculation*/
+#if 0
+//int itr = 0;
+//int Hd = 0;
+//set_bit_table_256();
+
+printf("\n Other way of populating table\n ");
+
+    for(itr = 0; itr<256;itr++){
+        printf(" Bits[%d] = %d \t", itr, BitsSetTable256_f[itr]);
+        if(itr%6 == 0)printf("\n");
+    }
+
+//Hd = hammingDistance(93,73);
+
+//printf("\n hamming distance = %d \n", Hd);
+
+
+#endif //0
+
+
 
 }
 
