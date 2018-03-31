@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "utils.h"
-
+#include <limits.h>
 extern node *head;
 extern node *curr;
 
@@ -16,6 +16,108 @@ B6(0), B6(1), B6(1), B6(2)
 
 };
 
+unsigned int numb_of_digits(int numb){
+
+    if(numb<10)         return 1;
+    if(numb<100)        return 2;
+    if(numb<1000)       return 3;
+    if(numb<10000)      return 4;
+    if(numb<100000)     return 5;
+    if(numb<1000000)    return 6;
+    if(numb<10000000)   return 7;
+    if(numb<100000000)  return 8;
+    if(numb<1000000000) return 9;
+    return 0;
+
+}
+
+/*This function takes a signed number as input and returns a string of characters representing hex equivalanet of input number*/
+
+char * toHex(int numb){
+unsigned int rem = 0;
+unsigned char x = 0;
+unsigned char a_c = 0;
+unsigned char temp = 0;
+
+char *arr = (char*)malloc(9*sizeof(char));
+char *chPtr = &arr[0];
+unsigned int num = 0;
+
+printf("\n input number in function = %d \n",num);
+    if (numb == 0){
+        return "0";
+    }
+    if(numb < 0){
+
+        /*For two's compliment of the negative number we need to use UINT_MAX which gives us 0xffffffff and by adding negative number to it we are actually subtracting*/    
+        num = UINT_MAX + numb +1;
+            
+    }else {
+    
+        num = numb;
+    
+    }
+
+    
+    while(num){
+    rem = num%16;
+
+        if(rem < 10)
+            *chPtr = '0'+ (char)rem;
+      
+    switch (rem)    {
+    
+
+        case 10:
+                        *chPtr = 'a'; 
+                        break;
+    
+        case 11:
+                        *chPtr = 'b'; 
+                        break;
+    
+        case 12:
+                        *chPtr = 'c'; 
+                        break;
+    
+        case 13:
+                        *chPtr = 'd'; 
+                        break;
+    
+        case 14:
+                        *chPtr = 'e'; 
+                        break;
+    
+        case 15:
+                        *chPtr = 'f'; 
+                        break;
+    }
+
+    ++chPtr;
+    x++;
+    num = num/16;
+    }
+    
+    x = x-1;
+    /*Error check x shold always be smaller than the max size of array.*/
+    if(x>8){
+        printf("given number is oveflowing the array size");
+        return "0";
+
+    }
+    while(x>a_c){
+        temp = arr[a_c];
+        arr[a_c] = arr[x];
+        arr[x] = temp;
+        x--;
+        ++a_c;
+    }
+    a_c = a_c + x +1;
+    arr[a_c] = '\0';
+    printf("\n ---printing array contents %s ---\n",chPtr);
+    return arr;
+
+}
 
 
 

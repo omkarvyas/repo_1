@@ -24,26 +24,85 @@ typedef union {
 
 
 
-
 int main(){
 
 unsigned int numb = 0;
-char *str = NULL;
+unsigned char x = 0;
+unsigned int rem = 0;
+
 int var = 0;
+char arr[8] = {0};
+char *chPtr = &arr[0];
+unsigned char temp = 0;
+unsigned char a_c = 0;
 printf("\n Input a number \n");
 scanf("%d",&numb);
-
-printf("\n input number = %d \n",numb);
-
-str = toHex(numb);
-
-    printf("\n ---printing array contents %s ---\n",str);
-
 printf("\n input number = %d \n",numb);
 var = numb_of_digits(numb);
 printf("\n number of digits = %d \n",var);
 
 
+
+    while(numb){
+    rem = numb%16;
+    if(rem <10){
+    *chPtr = '0'+ (char)rem;
+    } else if(rem == 10){
+        *chPtr = 'a';
+    }else if(rem == 11){
+        *chPtr = 'b';
+    }else if(rem == 12){
+        *chPtr = 'c';
+    }else if(rem == 13){
+        *chPtr = 'd';
+    }else if(rem == 14){
+        *chPtr = 'e';
+    }else if (rem == 15){
+        *chPtr = 'f';
+    }
+    ++chPtr;
+    x++;
+    numb = numb/16;
+    }
+    chPtr = &arr[0];
+
+    x = x-1;
+
+    while(x){
+    
+        temp = arr[a_c];
+        arr[a_c] = arr[x];
+        arr[x] = temp;
+        x--;
+        ++a_c;
+        
+    }
+    a_c= a_c + 1;
+    arr[a_c] = '\0';
+
+    printf("\n ------------------printing array contents %s ---------------------\n",chPtr);
+
+#if 0    
+printf("%c", *chPtr);
+chPtr++;
+printf("%c", *chPtr);
+chPtr++;
+printf("%c", *chPtr);
+chPtr++;
+printf("%c", *chPtr);
+chPtr++;
+printf("%c", *chPtr);
+chPtr++;
+printf("%c", *chPtr);
+chPtr++;
+printf("%c", *chPtr);
+chPtr++;
+insigned char temp = 0;
+printf("%c", *chPtr);
+chPtr++;
+//    printf("\n ------------------printing array contents %s ---------------------\n",chPtr);
+//    printf("\n numb = %d \n",numb);
+#endif
 
 
 printf("\n Hello Linux C \n");

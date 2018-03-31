@@ -23,6 +23,7 @@ int del_node(int val);
 int hammingDistance(int x, int y);
 void set_bit_table_256(void);
 unsigned int count_set_bits(int numb);
-
+unsigned int numb_of_digits(int numb);
+char * toHex(int numb);
 #endif //UTILS_H
 
