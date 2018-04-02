@@ -1,30 +1,22 @@
 #include <iostream>
 using namespace std;
-
 #define MAX 100
 
-
-
 class Stack{
-
     int stk_ptr;
     int arr[MAX];
+public:
+    Stack(){
+        stk_ptr = -1;
+    }
+    void push(int data);
+    int pop();
+    bool isempty();
+    bool isfull();
+    int top();
+};
 
-        public:
-        Stack(){
-            stk_ptr = -1;
-    
-         }
-        void push(int data){
-        
-            cout<<"in push"<<endl;
-            stk_ptr++;
-            
-            cout<<"stk_ptr:"<<stk_ptr<<endl;
-            arr[stk_ptr] = data;
-        
-        }
-        int pop(){
+int Stack::pop(){
                    
             cout<<"in pop"<<endl;
             if(isempty()){
@@ -33,38 +25,43 @@ class Stack{
                 return -1;
             
             }
-            
             stk_ptr--;
-
         }
-        bool isempty(){
+bool Stack::isempty(){
                 
             cout<<"in isempty"<<endl;
             if(stk_ptr == -1){
                 return true;
             }
             return false;
-        }
-        bool isfull(){
+}
+
+bool Stack::isfull(){
                  
             cout<<"in isfull"<<endl;
             if(stk_ptr == MAX){
                 return true;
-                
             }
             return false;
 
         
-        }
-        int top(){
+}
+int Stack::top(){
             int stack_top_val = 0;
             cout<<"in top"<<endl;
             cout<<"stk_ptr:"<<stk_ptr<<endl;
             stack_top_val = arr[stk_ptr];
             return stack_top_val;
-        }
+}
 
-};
+
+void Stack::push(int data){
+            cout<<"in push"<<endl;
+            stk_ptr++;
+            cout<<"stk_ptr:"<<stk_ptr<<endl;
+            arr[stk_ptr] = data;
+}
+
 
 int main(){
     Stack mystack;
