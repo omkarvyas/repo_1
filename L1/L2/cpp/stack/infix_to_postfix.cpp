@@ -37,66 +37,46 @@ char * infix_to_postfix(char arr[]){
     int x = 0;
     char ch_tp =0;
     char tx = 0;
-    for(i = 0; i < size;){
-    
+    for(i = 0; i < size;i++){
+             /*Normal condition of a to z put it to output*/
         if(arr[i] >= 'a' && arr[i] <= 'z' ){
         out_arr[j] = arr[i];
         j++;
-        i++;        
-        }else if(arr[i]== ')'){
-
-            while(ch_tp != '('){
-            ch_tp = mystk.top();
-            if(ch_tp == '(')break;
-            out_arr[j] = ch_tp;
-            j++;
-            mystk.pop();
-            }
-            mystk.pop();
-            i++;
-
+        } else if(arr[i]== '('){
+             /*Special case of open bracket '(' */
+            mystk.push(arr[i]);        
         }else{
-        /*case where arr[i] could be (, ^, *, /, +, -*/
-
+             /*Case where arr[i] could be ), ^, *, /, +, -*/
+            if(arr[i]== ')'){
+                    while(ch_tp != '('){
+                    ch_tp = mystk.top();
+                        if(ch_tp == '(')break;
+                        out_arr[j] = ch_tp;
+                        j++;
+                        mystk.pop();
+                    }
+                mystk.pop();
+            }       
             if(mystk.empty()== true){
                 mystk.push(arr[i]);
-                i++;
-                            
             }else{
-            
-                tmp = prec(arr[i]);
-                
-                tx = mystk.top();
+                while((prec(arr[i])<=prec(mystk.top()))){
+                   tmp = prec(arr[i]);
+                   out_arr[j] = tmp;
+                   j++;
+                   mystk.pop();
 
-                x = prec(tx);
-                if(tmp<x){
-                    
-                    out_arr[j] = mystk.top();
-                    mystk.pop();
-                    mystk.push(arr[i]);
-                    i++;
-                    j++;
-
-                }else{
-                    mystk.push(arr[i]);
-                    i++;
-                
                 }
-            
-            
+
             }
-        
-        
+            
         }
-    
-    
     }
+    
     while(mystk.empty() != true){
-    
-    out_arr[j] = mystk.top();
-    mystk.pop();
-    j++;
-    
+        out_arr[j] = mystk.top();
+        mystk.pop();
+        j++;
     }
     out_arr[j] = '\0';
     cout<<"out put array:"<<out_arr<<endl;
