@@ -1,7 +1,7 @@
 #include<iostream>
 #include<stack>
 #include<cstring>
-
+#include<sstream>
 using namespace std;
 
 /*
@@ -86,12 +86,8 @@ int prec_s = 0;
             if(mystk.empty() == true){
                 mystk.push(arr[i]);
             }else{
-                cout<<"arr[i]:"<<arr[i]<<endl;
-                cout<<"out_arr[j]:"<<out_arr[j]<<"j ="<<j<<endl;
-                cout<<"precedence of arr[i]:"<<precedence(arr[i])<<endl;
-                cout<<"precedence of mystk.top():"<<precedence(arr[i])<<endl;
 
-            /*check the precedence of arr[i] check the predence of stack top element*/
+/*check the precedence of arr[i] check the predence of stack top element*/
                 while(precedence(arr[i]) <= precedence(mystk.top())){
 
 
@@ -129,6 +125,70 @@ return out_arr;
 }
 
 
+/*Evaluation of post fix expression*/
+/*
+ 1. Scan the expression from left to right if you get oprands convert them to the number before pushing to stack.
+ 2. first we encounter the operands, place them to the stack 
+ 3. we are unsure what to do next with them until you see the next symbol. Placing each operand on stacj ensures that they are avilable if operator comes next.
+ 4. If we we get operands push it on stack, if we get operator pop recently pushed 2 operands. WE will have to push this result back to the stack.
+ 5. When the final operator is porcessed there will be only one value left on stack. Pop it and return.
+ 
+ */
+
+
+int pfix_eval(string str){
+
+stringstream ss;
+
+/*storing the string in to string stream*/
+
+ss << str;
+
+string temp;
+char *p = NULL;
+int found;
+
+    while(!ss.eof()){
+/*extracintg word by word from stream */
+        ss>>temp;
+        cout<<"temp before operation: "<<temp<<endl;
+
+        if(temp == "+"){
+        
+             cout<<"found addition "<<temp<<endl;
+        
+        }
+        if(temp == "-"){
+        
+             cout<<"found subtraction "<<temp<<endl;
+        
+        }
+        if(temp == "*"){
+        
+             cout<<"multiplication "<<temp<<endl;
+        
+        }
+        if(temp == "/"){
+        
+             cout<<"divide "<<temp<<endl;
+        
+        }
+
+
+
+
+/*checking the given word is integer or not*/
+        if(stringstream(temp) >>found){
+            cout << found << " ";
+        
+        }
+        temp = "";
+
+    }
+
+}
+
+
 
 
 int main(){
@@ -138,8 +198,16 @@ char *p = NULL;
 char arr[] = "(a+b)*(c+d)";
 
 p = infix_to_post_fix(arr);
-cout <<"out put = "<<p<<endl;
-    return 0;
+cout <<"\n"<<"Infix expression:"<<arr<<"\t\t\t"<<"to the post fix expression:"<<p<<"\n"<<endl;
+
+/* ab+cd+* */
+
+string exp =  "10 20 + 30 40 + *";
+
+int v = pfix_eval(exp);
+
+
+return 0;
 
 
 }
