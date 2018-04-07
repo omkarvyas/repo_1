@@ -4,6 +4,7 @@
 #include<sstream>
 using namespace std;
 
+int calculate(int op1, int op2, char operand);
 /*
  This program does infix to post fix conversion 
 
@@ -14,7 +15,6 @@ using namespace std;
  5. if arr[i] = ')' pop everything on stack till you hit '(' and put in out array, and pop '(' and disacrd.
  6. if arr[i] = operands like *, +, ^, - push to stack however remove all elemnts from stack if the predence of the elemts on stack is grater than or equal to precedence of arr[i] and append it to the out_arr[j].
  7. when input string is completely processed remove all elemtns from the stack and append it to out array
- 
  
  */
 
@@ -129,7 +129,7 @@ return out_arr;
 /*
  1. Scan the expression from left to right if you get oprands convert them to the number before pushing to stack.
  2. first we encounter the operands, place them to the stack 
- 3. we are unsure what to do next with them until you see the next symbol. Placing each operand on stacj ensures that they are avilable if operator comes next.
+ 3. we are unsure what to do next with them until you see the next symbol. Placing each operand on stack ensures that they are avilable if operator comes next.
  4. If we we get operands push it on stack, if we get operator pop recently pushed 2 operands. WE will have to push this result back to the stack.
  5. When the final operator is porcessed there will be only one value left on stack. Pop it and return.
  
@@ -145,50 +145,102 @@ stringstream ss;
 ss << str;
 
 string temp;
-char *p = NULL;
 int found;
+char operand = 0;
+int op1 = 0;
+int op2 = 0;
+int eval = 0;
+
+stack <int> my_int_stack;
+
 
     while(!ss.eof()){
 /*extracintg word by word from stream */
         ss>>temp;
         cout<<"temp before operation: "<<temp<<endl;
 
-        if(temp == "+"){
-        
-             cout<<"found addition "<<temp<<endl;
-        
-        }
-        if(temp == "-"){
-        
-             cout<<"found subtraction "<<temp<<endl;
-        
-        }
-        if(temp == "*"){
-        
-             cout<<"multiplication "<<temp<<endl;
-        
-        }
-        if(temp == "/"){
-        
-             cout<<"divide "<<temp<<endl;
-        
-        }
-
-
-
 
 /*checking the given word is integer or not*/
         if(stringstream(temp) >>found){
             cout << found << " ";
+            my_int_stack.push(found);
+        
+        }else{
+            
+            op1 = my_int_stack.top();
+            my_int_stack.pop();
+            op2 = my_int_stack.top();
+            my_int_stack.pop();
+
+            if(temp == "+"){
+        
+                 cout<<"found addition "<<temp<<endl;
+                 operand = '+';
+        
+            }else if(temp == "-"){
+        
+                 cout<<"found subtraction "<<temp<<endl;
+                 operand = '-';
+        
+            }else if(temp == "*"){
+        
+                 cout<<"multiplication "<<temp<<endl;
+                 operand = '*';
+        
+            }else if(temp == "/"){
+        
+                 cout<<"divide "<<temp<<endl;
+                 operand = '/';
+        
+            }else if(temp == "^"){
+        
+                 cout<<"power "<<temp<<endl;
+                 operand = '^';
+        
+            }else{
+                cout<<"Error temp is not valid temp == "<<temp<<endl;
+                return 0;
+            
+            }
+
+            eval = calculate(op1,op2,operand);
+            cout <<"Intermidiate evaluation eval:"<<eval<<endl;
+            my_int_stack.push(eval);
         
         }
-        temp = "";
 
     }
 
+    eval = my_int_stack.top();
+    cout<<"Fianl output:"<<eval<<endl;
+    return eval;
+
 }
 
+int calculate(int op1, int op2, char operand){
 
+    switch (operand){
+    
+            case '+': return op1+op2;
+                      break;
+    
+            case '-': return op1-op2;
+                      break;
+    
+            case '*': return op1*op2;
+                      break;
+    
+            case '/': return op1/op2;
+                      break;
+    
+            case '^': return op1^op2;
+                      break;
+    
+    
+    }
+
+
+}
 
 
 int main(){
