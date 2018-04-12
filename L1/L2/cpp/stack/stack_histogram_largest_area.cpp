@@ -1,6 +1,7 @@
 #include<iostream>
 #include<stack>
 #include<cstring>
+#include<vector>
 
 using namespace std;
 
@@ -82,6 +83,7 @@ int findout_max_area(int arr[], int size){
 int main(){
 
     int arr[] = {20,20,12,9,0,21};
+    vector<int> my_vector;
     int max_area = findout_max_area(arr, sizeof(arr)/sizeof(arr[0]));
     cout<<"max_area = "<< max_area;
     cout<<"Hello"<<endl;
