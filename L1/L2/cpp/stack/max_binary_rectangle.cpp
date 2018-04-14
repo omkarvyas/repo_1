@@ -2,7 +2,20 @@
 #include<stack>
 #include<cstring>
 #include<vector>
+/*
+ 
+ Given a 2D binary matrix filled with 0's and 1's, find the largest rectangle containing only 1's and return its area.
 
+ For example, given the following matrix:
+ 
+ 1 0 1 0 0
+ 1 0 1 1 1
+ 1 1 1 1 1
+ 1 0 0 1 0
+ 
+ max area in above exampe is 6.
+ 
+ */
 
 
 
@@ -17,65 +30,46 @@ class Solution{
 };
 
 int Solution::maximalRectangle(vector<vector<char>>& matrix){
+if(matrix.empty()){
 
+    return 0;
 
-            
-int row =0, col =0;
-int no_of_cols = matrix[0].size();
-int no_of_rows = matrix.size();
+}
 int temp_area = 0;
 int max_area = 0;
 int i = 0;
 int j = 0;
+
 cout<<"matrix size it is number of rows= "<< matrix.size()<<endl;
 cout<<"matrix[].size it is number of coloms= "<< matrix[0].size()<<endl;
 
-int arr[no_of_cols];
+/*take one auxilary array arr, here we are taking one dimentional arr to store temp row of given matrix*/
 
-    for( j = 0; j<no_of_rows;j++){
-        for( i = 0; i<no_of_cols;i++){
+vector<int> arr(matrix[0].size(),0);
+
+/*Convert this array in to a histogram if we get consecutive 1's then add if we get 0 then reset the arr value of that index to zero*/
     
-            
-            if (j == 0)
-            {
-                arr[i] = matrix[j][i] - '0';
-            
-            }
-
-            if(j>0 && matrix[j][i]!= '0'){
-            
-                arr[i] = arr[i]+matrix[j][i] - '0';
-            
-            }
+    for( i = 0; i<matrix.size();i++){
+        for( j = 0; j<matrix[0].size();j++){
+   
+               if(matrix[i][j] == '0') {
+               
+                    arr[j] = 0;
+               
+               }else{
+               
+                    arr[j]++;
+               }
+         }
+    temp_area = findout_max_area(&arr[0],arr.size());
+        if(max_area<temp_area){
+    
+            max_area = temp_area;
     
         }
-    temp_area = findout_max_area(arr,sizeof(arr)/sizeof(arr[0]));
-    if(max_area<temp_area){
-    
-    max_area = temp_area;
-    
     }
-    cout<<"temp_area= " <<temp_area<<endl;
-    cout<<"i = "<<i<<endl;
-    cout<<"j= "<<j<<endl;
-    }
-
-
-
-
-#if 0
-    for(row = 0; row<no_of_rows; row++){
-        for(col = 0; col<no_of_cols;col++){
-           cout<<"row = \t"<<row<<"col = \t"<< col << "\t matrix[row][col] \t "<<matrix[row][col]<<endl;
-        }
-        cout<<"\n";
-    }
-#endif
-
 
 return max_area;
-
-
 }
 
 
@@ -156,12 +150,15 @@ int Solution::findout_max_area(int arr[], int size){
 
 
 int main(){
-
+//    vector < vector <char> > matrix {{'0','1'},
+//                                     {'1','0'}};
 
     vector < vector <char> > matrix {{'1', '0', '1', '0', '0'},
                                      {'1', '0', '1', '1', '1'},
                                      {'1', '1', '1', '1', '1'},
                                      {'1', '0', '0', '1', '0'}};
+
+
     Solution s1;
     int max_area = s1.maximalRectangle(matrix);
     cout<<"Max area"<<max_area<<endl;

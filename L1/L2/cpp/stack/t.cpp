@@ -1,4 +1,5 @@
 #include<iostream>
+#include<vector>
 using namespace std;
 
 
@@ -23,6 +24,12 @@ return out_arr;
 
 
 int main(){
+
+
+vector<vector <int>> matrix = {};
+
+cout<<"sizeof vector =="<<matrix.size();
+
 
 
 char *p =NULL;
