@@ -39,8 +39,19 @@ class Solution {
                         deque<int> myqueu;
                         int i;
                         int max = 0;
+                        if(k == 1){
+                        
+                            for(i = 0;i<nums.size();i++){
+                        
+                                out_arr.push_back(nums[i]);
+                        
+                            }
+                            return out_arr;
+                        
+                        }
     
                         for(i = 0; i<(nums.size()-(k-1));i++){
+                                max = 0;
                             for(int l = i; l < k+i; l++){
                                 cout<<"nums[l]"<<nums[l]<<endl;
                                 if(max<nums[l]){
@@ -63,8 +74,8 @@ int main(){
 
 
     Solution my_sol;
-    vector<int> input_arr = {1,3,-1,-3,5,3,6,7};
-    int Window_size = 3;
+    vector<int> input_arr = {1,-1};
+    int Window_size = 1;
     vector<int> out_arr = my_sol.maxSlidingWindow(input_arr, Window_size);
     int size = out_arr.size();
             cout<<"Max number array:";
