@@ -40,13 +40,9 @@ class Solution {
                         int i;
                         int max = 0;
                         if(k == 1){
+
+                            return nums;
                         
-                            for(i = 0;i<nums.size();i++){
-                        
-                                out_arr.push_back(nums[i]);
-                        
-                            }
-                            return out_arr;
                         
                         }
     
@@ -74,8 +70,8 @@ int main(){
 
 
     Solution my_sol;
-    vector<int> input_arr = {1,-1};
-    int Window_size = 1;
+    vector<int> input_arr = {1,3,-1,-3,5,3,6,7};
+    int Window_size = 3;
     vector<int> out_arr = my_sol.maxSlidingWindow(input_arr, Window_size);
     int size = out_arr.size();
             cout<<"Max number array:";
