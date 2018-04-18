@@ -74,10 +74,10 @@ class Solution {
                             for(int l = k; l<nums.size();l++){
                             /*As we reached here it means first window size elements are done and we can print and use first big element in first window size*/
                                 cout<<"nums[mydque.front()]" << nums[mydque.front()]<<endl;
+                                out_arr.push_back(nums[mydque.front()]);
                             /*Check if the window size is reached*/
                                 if((l - mydque.front()) == k){
                                 
-                                    out_arr.push_back(nums[mydque.front()]);
                             /*Once Window size k is reached discard the front element of my deque*/
                                     mydque.pop_front();
 
