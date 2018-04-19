@@ -46,10 +46,10 @@ class Solution {
                             
                             }
 
-                            /*for loop for only first 3 elements */
+                            /*for loop for only first k elements */
                             for(i = 0; i < k ;i++){
                             /*When mydque is empty or the next number is less than the current element push it on to the mydque at BACK*/
-                                if(mydque.empty()==true || nums[i]<mydque.back()){
+                                if(mydque.empty()==true || nums[i]<nums[mydque.back()]){
                                 
                                     mydque.push_back(i);
                                 
@@ -85,7 +85,7 @@ class Solution {
                                 }
 
                             /*When mydque is empty or the next number is less than the current element push it on to the mydque at BACK*/
-                                if(mydque.empty()==true || nums[l]<mydque.back()){
+                                if(mydque.empty()==true || nums[l]<nums[mydque.back()]){
                                 
                                     mydque.push_back(l);
                                 
@@ -126,8 +126,8 @@ int main(){
 
     
     Solution my_sol;
-    vector<int> input_arr = {1,3,-1,-3,5,3,6,7};
-    int Window_size = 3;
+    vector<int> input_arr = {9,10,9,-7,-4,-8,2,-6};
+    int Window_size = 5;
     vector<int> out_arr = my_sol.maxSlidingWindow(input_arr, Window_size);
     int size = out_arr.size();
             cout<<"Max number array:";
