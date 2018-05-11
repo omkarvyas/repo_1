@@ -9,6 +9,28 @@ struct ListNode{
 };
 
 
+void Print_LL(ListNode *head){
+
+    ListNode *tmp = head;
+    int i =0;
+    if(head == NULL){
+    cout << "Empty List; head pointer is NULL"<<endl;
+    return;
+    
+    }
+
+    cout<<"Linked List Contents:   ";
+    while(tmp!=NULL){
+    
+        //cout<<"Node:   "<<i<<"val:  "<<tmp->val;
+        cout<<tmp->val << " " ;
+        tmp = tmp->next;
+        i++;
+    }
+    cout<<endl;
+}
+
+
 
 
 ListNode * AddNode_End(ListNode *head, int val){
@@ -29,6 +51,39 @@ ListNode * AddNode_End(ListNode *head, int val){
     return head;
 }
 
+
+
+
+ListNode* reverse(ListNode *head){
+
+    if(head == NULL){
+        return head;
+    }
+    ListNode *cur = head;
+    ListNode *prev = NULL;
+    ListNode *NP = NULL;
+
+
+    while(cur!=NULL){
+    
+        NP = cur->next;
+        cur->next = prev;
+        prev = cur;
+        cur = NP;
+    
+    }
+
+    return prev;
+
+}
+
+
+
+
+
+
+
+
 ListNode *Reverse_LL(ListNode *head){
 
     ListNode *cur = head;
@@ -46,26 +101,76 @@ ListNode *Reverse_LL(ListNode *head){
     return prev;
 
 
-
 }
 
-void Print_LL(ListNode *head){
 
-    ListNode *tmp = head;
-    int i =0;
-    if(head == NULL){
-    cout << "Empty List; head pointer is NULL"<<endl;
-    return;
-    
-    }
 
-    while(tmp!=NULL){
-    
-        cout<<"Node:"<<i<<"val:"<<tmp->val<<endl;
-        tmp = tmp->next;
+
+ListNode *Reverse_LL_K_G(ListNode *head, int k){
+
+    ListNode *cur = NULL;
+    ListNode *prev = NULL;
+    ListNode *khead = NULL;
+    ListNode *knext = NULL;
+    ListNode *dummy = NULL;
+
+    dummy = new ListNode(-1);
+
+    dummy->next = head;
+    cur = dummy;
+    prev = dummy;
+    int i = 0;
+    while(cur->next!= NULL){
+
         i++;
+        cur = cur->next;
+        if(i == k){
+        
+            knext = cur->next;
+            khead = prev->next;
+            cur->next = NULL;
+            prev->next = reverse(khead);
+            khead->next = knext;
+            prev = cur = khead;
+        }
+    
+    
+    
     }
+
+    return dummy->next;
+
 }
+
+
+ListNode *Revese_LL_k_Groups(ListNode *head, int k){
+
+ListNode *cur = NULL;
+ListNode *prev = NULL, *khead=NULL, *knext=NULL, *dummy;
+dummy = new ListNode(-1);
+dummy->next = head;
+cur = prev = dummy;
+int i = 0;
+
+    while(cur->next!=NULL){
+        i++;
+        cur = cur->next;
+        if(i == k){
+            knext = cur->next;
+            khead = prev->next;
+            cur->next = NULL; /*Break the link*/
+            prev->next = reverse(khead); /*Reverse K nodes*/
+            khead->next = knext;
+            cur = prev = khead;
+            i = 0;
+        }
+    
+    }
+    return dummy->next;
+
+}
+
+
 
 
 
@@ -73,6 +178,9 @@ int main(){
 
     ListNode * head = NULL;
     head = AddNode_End(head,10);
+    head = AddNode_End(head,11);
+    head = AddNode_End(head,12);
+    head = AddNode_End(head,13);
     head = AddNode_End(head,20);
     head = AddNode_End(head,30);
     head = AddNode_End(head,40);
@@ -81,10 +189,17 @@ int main(){
     head = AddNode_End(head,70);
     head = AddNode_End(head,80);
     head = AddNode_End(head,90);
+    head = AddNode_End(head,91);
+    head = AddNode_End(head,92);
+    head = AddNode_End(head,93);
     cout<<"Full List"<<endl;
     Print_LL(head);
-    head = Reverse_LL(head);
-    cout<<"Reverse List"<<endl;
+
+
+//    head = Revese_LL_k_Groups(head,3);
+    head = Reverse_LL_K_G(head,3);
+    //head = Reverse_LL(head);
+    //cout<<"Reverse List"<<endl;
     Print_LL(head);
     return 0;
 }
