@@ -132,6 +132,7 @@ ListNode *Reverse_LL_K_G(ListNode *head, int k){
             prev->next = reverse(khead);
             khead->next = knext;
             prev = cur = khead;
+            i = 0;
         }
     
     
