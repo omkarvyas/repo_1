@@ -1,4 +1,5 @@
 #include<iostream>
+#include<vector>
 
 using namespace std;
 
@@ -45,7 +46,70 @@ ListNode * AddNode_End(ListNode *head, int val){
     return head;
 }
 
+vector<ListNode*> splitListToParts(ListNode* root, int k){
 
+        vector<ListNode*> result(k,NULL);
+        ListNode *cur = root;
+        ListNode *prev = NULL;
+        int len = 0, size = 0, rem = 0, temp = 0, i = 0;
+        /*Get the length of the link list*/
+        while(cur!=NULL){
+            len++;
+            cur = cur->next;
+            
+        }
+        /*Get the basic size of each chunk, if size is less than 0 then reset it to be 1*/
+        size = len/k;
+            if(size == 0)
+                size = 1;
+            else
+                rem = len % k;
+        
+        /*Reset the current pointer to root as it is traversed to end to check the length in previous while loop*/
+        cur = root; 
+        
+        while(cur!=NULL)
+        {
+            result[i] = cur;
+            temp = 0;
+            prev = cur;
+            /*Till we reach to the size of first chun traverse the list and keep adding nodes to linked list*/
+            while(temp<(size-1) && cur!=NULL ){
+                
+                cur = cur->next;
+                prev = cur;
+                temp++; //increase the tem till the size
+                
+            }
+            
+            /*Handle the case of reminder, if we can not devide input linked list in equal parts we have to manage the remiaing nodes and should be appended to first chunks*/
+            if(rem>0){
+                rem--;
+            /*we have to go to next node to add extra node to the chunk*/
+                cur = cur->next;
+            /*We have to go save prev = cur*/
+                prev = cur;
+            /*we need to go to next node so that we can put it in next idenx of the vector result*/
+                cur = cur->next;
+            /*terminate the list*/
+                prev->next = NULL;
+                
+            }else{
+            /*we need to go to next node so that we can put it in next idenx of the vector result*/
+                cur = cur->next;
+            /*Then terminate this list*/
+                if(prev)
+                prev->next = NULL;
+                
+            }
+            
+            i++;
+                        
+        }
+        
+        return result;
+ 
+}
 
 
 
@@ -150,14 +214,12 @@ void Delete_This_Node(ListNode *Node){
 
     ListNode *tmp;
 
-    if(Node->next == NULL || (Node==NULL)){
+    if((Node->next) == NULL || (Node==NULL)){
     
         cout<<"this node can not be deleted"<<endl;
-        exit 0;
+        exit (0);
     
     }
-
-    
 
     cout << "i/p Node->val"<<Node->val<<endl;
     Node->val = Node->next->val;
