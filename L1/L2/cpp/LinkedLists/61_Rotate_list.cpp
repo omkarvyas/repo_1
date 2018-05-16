@@ -48,47 +48,49 @@ return tmp;
 
 }
 
-
-ListNode *rotate_list(ListNode *head, int k){
-
-    ListNode *cur = head;
-    ListNode *kth_Node = new ListNode(-1);
-    unsigned int count = 0;
-    
-    while(cur->next!=NULL){
-        cur = cur->next;
-        count++;
-    }
-
-    cur = head;
-
-    if(k > count){
-        k = k - count -1;
-    }
-        cout<<"k = "<<k<<endl;    
-        while(k!=0 && cur!=NULL){
-        
-            cur = cur->next;
-            k--;
-        
+ListNode* rotateRight(ListNode* head, int k) {
+    /*null check for input linked list*/        
+        if(!head){
+            
+            return head;
         }
-        kth_Node = cur;
-        while(cur->next!= NULL){
-        
-            cur = cur->next;
-        
+    /*temp veriable end init to head*/
+    ListNode *end = head;
+    /*have a count = 1*/
+    int count = 1;
+    /*traverse the input list to just before the end so we had count = 1 as initial value*/
+        while(end->next){
+            
+            count++;
+            end = end->next;
+            
         }
-
-        cur->next = head;
-        head = kth_Node->next;
-        kth_Node->next = NULL;
-
-        return head;
+        //cout <<"end->val:     "<<end->val<<endl;
+        /* k = k%count if k = 2 and count = 5 k is still 2 if k is in multiples of count then no need to rotate, also if k is grater than count it will set ke to less than count so we can know how much exact rotation we need*/
+        k = k%count;
+        //cout << "new k = "<<k<<endl;
+        if(k == 0){
+            
+            return head;
+        }
+    /* now count - k that gives the kth node */
+    int index = count - k;
+    /*current = head*/
+    ListNode *current = head;
+    /*prev is set to NULL*/
+    ListNode *prev = NULL;
     
-    
-    
-
-}
+        for(int i = 0; i<index; ++i){
+            prev = current;
+            //cout<<"prev->val: "<<prev->val<<endl;
+            current = current->next;
+        }
+        /*make it circular list*/
+        end ->next = head;
+        /*prev points to the location where we should append NULL*/
+        prev->next = NULL;
+        return current;        
+    }
 
 
 int main(){
