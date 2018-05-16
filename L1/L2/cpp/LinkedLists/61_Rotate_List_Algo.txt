@@ -1,0 +1,38 @@
+Given a linked list, rotate the list to the right by k places, where k is non-negative.
+
+Example 1:
+
+Input: 1->2->3->4->5->NULL, k = 2
+Output: 4->5->1->2->3->NULL
+Explanation:
+rotate 1 steps to the right: 5->1->2->3->4->NULL
+rotate 2 steps to the right: 4->5->1->2->3->NULL
+Example 2:
+
+Input: 0->1->2->NULL, k = 4
+Output: 2->0->1->NULL
+Explanation:
+rotate 1 steps to the right: 2->0->1->NULL
+rotate 2 steps to the right: 1->2->0->NULL
+rotate 3 steps to the right: 0->1->2->NULL
+rotate 4 steps to the right: 2->0->1->NULL
+
+
+
+Function prototype: ListNode *rotate_list(ListNode *head, int k)
+
+1. NULL check for input head
+2. ListNode *end points to head
+3. count = 1;
+4. traverse the list and increase the count, as traversing goes till end->next == NULL; so we added one extra to count so that we know exact length. 
+5. k = k%count so that even k is bigger than linked list to be rotate we scale it down.
+6. if k is zero we return the ehad as we do not have to rotate if the the linked list size is in multiples of k.
+7. now index = count - k; that is the point of kth node. 
+8. Take new ListNode pointer current point it to head. 
+9. Take one more ListNode pointer prev = NULL
+10. for i = 0 to index size 
+	i. prev= current;
+	ii. current = current->next;
+11. end->next = head;
+12. prev->next = NULL; this is new end of list 
+13. return current, as by now current is the new start of rotated list. 
