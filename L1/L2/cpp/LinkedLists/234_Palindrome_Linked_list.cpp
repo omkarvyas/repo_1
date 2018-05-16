@@ -17,14 +17,14 @@ void Print_LL(ListNode *head){
     ListNode *tmp = head;
     int i =0;
     if(head == NULL){
-    cout << "Empty List; head pointer is NULL"<<endl;
+//    cout << "Empty List; head pointer is NULL"<<endl;
     return;
     
     }
 
     while(tmp!=NULL){
     
-        cout<<"Node:"<<i<<"val:"<<tmp->val<<endl;
+//        cout<<"Node:"<<i<<"val:"<<tmp->val<<endl;
         tmp = tmp->next;
         i++;
     }
@@ -64,9 +64,9 @@ Output: true
  */
 
 
-
 bool isPalindrome(ListNode* head) {
-
+        
+    if(!head) return true;
     /*traverse the whole list and find the half of it and push it on stack*/
     /*when we reach to the half of the linked list start removing the elelemnts form the stack and compare with rest of the contents in the linked list*/
 
@@ -91,7 +91,7 @@ bool isPalindrome(ListNode* head) {
         odd_flag = 1;
     
     }else{
-        cout<<"count is odd "<<endl;
+        cout<<"count is even"<<endl;
         count = count/2;
     
     }
@@ -109,30 +109,31 @@ bool isPalindrome(ListNode* head) {
     /*remove the center node from the stack*/
     if(odd_flag){
         my_stk.pop();
+        cout<<"poped the lelement and as odd flag is set"<<endl;
     
     }
     while(cur!=NULL){
-        cur = cur->next;
+       
     
         if(my_stk.empty()!=true){
             temp = (my_stk.top())->val;
-            cout<<"popped element from stack: "<<temp<<endl;
+            cout<<"popped element from stack temp: "<<temp<<endl;
+            if(cur!=NULL)
+                cout<<"cur->val = " <<cur->val<<endl;
             my_stk.pop();
         }
-        if(cur!=NULL){
-            if(temp != cur->val){
+        if(cur!=NULL && (temp != cur->val)){
+            
                 return false;
         
-            }
         }
+         cur = cur->next;
         
     }
 
     return true;
-                 
+        
 }
-
-
 
 
 
@@ -148,10 +149,10 @@ int main(){
     head = AddNode_Front(head,1);
     if(isPalindrome(head)){
     
-        cout<<"Linked list is not Palndrome"<<endl;
+        cout<<"Linked list is  Palndrome"<<endl;
     }else{
     
-        cout<<"Linked list is Palndrome"<<endl;
+        cout<<"Linked list not Palndrome"<<endl;
     
     }
     Print_LL(head);
