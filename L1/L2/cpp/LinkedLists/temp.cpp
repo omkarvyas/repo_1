@@ -1,9 +1,23 @@
 #include<iostream>
+#include<string>
 using namespace std;
 
 
 
 int main(){
+
+
+        char c  = '1';
+        char b = 'x';
+        char a = ';';
+
+        int x = 0;
+        x = isalpha(b);
+        cout <<"x =    "<< x <<endl;
+
+
+
+#if 0
 
 struct t{
 
@@ -62,6 +76,7 @@ cout<<"arr[0]"<<(int)*ptr<<endl;
 cout<<"address of array arr: "<<&arr<<endl;
 cout<<"address of struct ct: "<<&ct<<endl;
 
+#endif
 
 
 return 0;
